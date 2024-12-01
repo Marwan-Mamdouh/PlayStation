@@ -20,6 +20,15 @@ public class Corner extends AAssignable implements IAssignable {
 //        corners.add(this);
     }
 
+    Corner(int cornerId, int deviceId) {
+        this(cornerId, true, deviceId);
+    }
+
+    Corner(int deviceId) {
+        isFree = true;
+        this.deviceId = deviceId;
+    }
+
     @Override
     // produce the corner id
     public int getId() {

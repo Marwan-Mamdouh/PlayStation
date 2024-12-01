@@ -10,20 +10,23 @@ public class Device implements IDevice{
     private int deviceId;
     private boolean isFree = true;
     private EDevice deviceType;
-    private Integer assignTo;
-
+    private Integer assignTo = null;
 
     public Device() {}
 
-    public Device(int deviceId, EDevice deviceType) {
+    Device(EDevice deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    Device(int deviceId, EDevice deviceType) {
         this(deviceId, true, deviceType, null);
     }
 
-    public Device(int deviceId) {
+    Device(int deviceId) {
         this(deviceId, EDevice.PS4);
     }
 
-    public Device(int deviceId,
+    Device(int deviceId,
                   boolean isFree,
                   EDevice deviceType,
                   Integer assignTo) {

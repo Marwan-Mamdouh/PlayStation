@@ -12,12 +12,24 @@ public class Room extends AAssignable implements IAssignable {
 
     Room() {}
 
-    Room(int roomId, boolean isFree,int deviceId) {
+    // full constrictor
+    Room(int roomId, boolean isFree,Integer deviceId) {
         this.roomId = roomId;
         this.isFree = isFree;
         this.deviceId = deviceId;
 //        this.deviceId.assignTo(this.roomId);
 //        rooms.add(this);
+    }
+
+    // assume every new room will be free to use in the creation moment
+    Room(int roomId, int deviceId) {
+        this(roomId, true, deviceId);
+    }
+
+    // for creating temp room to add to db
+    Room(int deviceId) {
+        isFree = true;
+        this.deviceId = deviceId;
     }
 
     @Override

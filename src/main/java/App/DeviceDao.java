@@ -14,12 +14,10 @@ public class DeviceDao implements IDeviceDao {
 
     @Override
     public void insert(Device device) throws Exception {
-        String sql = "INSERT INTO device (deviceId, isFree, deviceType, assignTo) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO device (isFree, deviceType) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, device.getDeviceId());
-            stmt.setBoolean(2, device.getIsFree());
-            stmt.setString(3, device.getDeviceType().name());
-            stmt.setObject(4, device.getAssignTo()); // Nullable column
+            stmt.setInt(1, 1);
+            stmt.setString(2, device.getDeviceType().name());
             stmt.executeUpdate();
         }
     }
@@ -75,10 +73,16 @@ public class DeviceDao implements IDeviceDao {
     // Helper method to map ResultSet to Device object
     private Device mapResultSetToDevice(ResultSet rs) throws SQLException {
         int deviceId = rs.getInt("deviceId");
-        boolean isFree = rs.getBoolean("isFree");
-        EDevice deviceType = EDevice.valueOf(rs.getString("deviceType")); // Assuming EDevice is an enum
-        Integer assignTo = rs.getObject("assignTo") != null ? rs.getInt("assignTo") : null; // Handle null
+        boolean isFree = convertIntToBool(rs.getInt("isFree"));
+        // Assuming EDevice is an enum
+        EDevice deviceType = EDevice.valueOf(rs.getString("deviceType"));
+        // Handle null
+        Integer assignTo = rs.getObject("assignTo") != null ? rs.getInt("assignTo") : null;
         return new Device(deviceId, isFree, deviceType, assignTo);
+    }
+
+    private boolean convertIntToBool(int result) {
+      return result == 1;
     }
 }
 
