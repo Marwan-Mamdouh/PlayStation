@@ -3,7 +3,7 @@ package App;
 public interface ISession {
 
     // produce customer name that is using the deviceId
-    String getCtrName();
+    int getAdminId();
 
     // calc the duration of the session
     long calcDuration();

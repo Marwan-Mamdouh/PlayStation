@@ -6,19 +6,34 @@ import java.time.format.DateTimeFormatter;
 
 public class Session implements ISession {
 
-    private String ctrName;
+//    private String ctrName;
+    private int adminId;
+    private int sessionId;
+    private int assignableId;
+    private String endTime;
+    private String duration;
     private String startTime;
-    private Integer assignableId;
 
     Session() {}
 
     // corner session constructor
-    Session(String ctrName, int assignableId) {
-        startTime = getCurrentTime();
-        this.ctrName = ctrName;
+    Session(int adminId,int assignableId) {
+        this.adminId = adminId;
         this.assignableId = assignableId;
+
+//        startTime = getCurrentTime();
+//        this.ctrName = ctrName;
 //        this.assignableId = assignable;
 //        this.assignableId.book();
+    }
+
+    public Session(int sessionId, int assignableId,
+        String startTime, String endTime, String duration) {
+        this.endTime = endTime;
+        this.duration = duration;
+        this.startTime = startTime;
+        this.sessionId = sessionId;
+        this.assignableId = assignableId;
     }
 
     public String getCurrentTime() {
@@ -30,8 +45,12 @@ public class Session implements ISession {
 
 
     // produce name of the customer who opened theis session
-    public String getCtrName() {
-        return ctrName;
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public int getAssignableId() {
+        return assignableId;
     }
 
     @Override
@@ -63,10 +82,10 @@ public class Session implements ISession {
 //        return hoursPlayed * cost;
 //    }
 
-    @Override
-    public String toString() {
-        return "Session{ctrName: " + ctrName +
-                ", assignableId: " + assignableId +
-                ", start at: " + startTime +'}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Session{ctrName: " + ctrName +
+//                ", assignableId: " + assignableId +
+//                ", start at: " + startTime +'}';
+//    }
 }

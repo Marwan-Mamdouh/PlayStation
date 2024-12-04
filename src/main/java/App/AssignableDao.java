@@ -27,7 +27,7 @@ public AssignableDao(Connection connection) {
       }
     }
 
-    // change the device that in the corner
+    // change the device that in the space
     @Override
     public void changeDevice(IAssignable assignable, int deviceId) throws Exception {
       String tableName = String.valueOf(assignable.getClass()).toLowerCase().split("\\.")[1];

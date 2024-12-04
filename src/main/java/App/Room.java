@@ -1,14 +1,9 @@
 package App;
 
-import java.util.ArrayList;
-
 public class Room extends AAssignable implements IAssignable {
 
     // instance variables
     private int roomId;
-
-    // static variables
-//    private static ArrayList<Room> rooms = new ArrayList<>();
 
     Room() {}
 
@@ -17,8 +12,6 @@ public class Room extends AAssignable implements IAssignable {
         this.roomId = roomId;
         this.isFree = isFree;
         this.deviceId = deviceId;
-//        this.deviceId.assignTo(this.roomId);
-//        rooms.add(this);
     }
 
     // assume every new room will be free to use in the creation moment
@@ -45,15 +38,4 @@ public class Room extends AAssignable implements IAssignable {
                 ", deviceId=" + deviceId +
                 ", isFree=" + isFree + " }";
     }
-
-//    // produce an array List from empty rooms
-//    public static ArrayList<Room> getAvailableRooms() {
-//        ArrayList<Room> freeRooms = new ArrayList<>();
-//        for (Room room: rooms) {
-//            if (room.getIsFree()) {
-//                freeRooms.add(room);
-//            }
-//        }
-//        return freeRooms;
-//    }
 }

@@ -26,16 +26,14 @@ public class Device implements IDevice{
         this(deviceId, EDevice.PS4);
     }
 
-    Device(int deviceId,
-                  boolean isFree,
-                  EDevice deviceType,
-                  Integer assignTo) {
+    Device(int deviceId, boolean isFree, EDevice deviceType, Integer assignTo) {
         this.deviceId = deviceId;
         this.isFree = isFree;
         this.deviceType = deviceType;
         this.assignTo = assignTo;
     }
 
+    @Override
     public boolean getIsFree() {
         return isFree;
     }
