@@ -7,12 +7,12 @@ import java.time.format.DateTimeFormatter;
 public class Session implements ISession {
 
 //    private String ctrName;
-    private int adminId;
     private int sessionId;
+    private int adminId;
     private int assignableId;
+    private String startTime;
     private String endTime;
     private String duration;
-    private String startTime;
 
     Session() {}
 
@@ -20,20 +20,15 @@ public class Session implements ISession {
     Session(int adminId,int assignableId) {
         this.adminId = adminId;
         this.assignableId = assignableId;
-
-//        startTime = getCurrentTime();
-//        this.ctrName = ctrName;
-//        this.assignableId = assignable;
-//        this.assignableId.book();
     }
 
     public Session(int sessionId, int assignableId,
         String startTime, String endTime, String duration) {
-        this.endTime = endTime;
-        this.duration = duration;
-        this.startTime = startTime;
         this.sessionId = sessionId;
         this.assignableId = assignableId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.duration = duration;
     }
 
     public String getCurrentTime() {
@@ -88,4 +83,16 @@ public class Session implements ISession {
 //                ", assignableId: " + assignableId +
 //                ", start at: " + startTime +'}';
 //    }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+            "sessionId=" + sessionId +
+//            ", adminId=" + adminId +
+            ", assignableId=" + assignableId +
+            ", startTime='" + startTime + '\'' +
+            ", endTime='" + endTime + '\'' +
+            ", duration='" + duration + '\'' +
+            '}';
+    }
 }

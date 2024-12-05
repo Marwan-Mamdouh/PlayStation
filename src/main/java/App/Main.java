@@ -5,20 +5,17 @@ import java.sql.Connection;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-//        ISession session = new Session("ahmed", corner1);
-
-//        System.out.println(d1);
-//        System.out.println(corner1);
-//        System.out.println(session);
-
         Connection connection = DatabaseConnection.getInstance().getConnection(); // From Singleton
-        IDeviceDao deviceDao = new DeviceDao(connection);
-        deviceDao.insert(new Device(EDevice.PS5));
-        System.out.println(deviceDao.findAll());
+//        IDeviceDao deviceDao = new DeviceDao(connection);
+//        deviceDao.insert(new Device(EDevice.PS5));
+//        System.out.println(deviceDao.findAll());
+//        IAssignableDao assignableDao = new AssignableDao(connection);
 
-        IAssignableDao assignableDao = new AssignableDao(connection);
-//        assignableDao.add(new Room(110));
-//        assignableDao.delete(26, "room");
-
+        ISessionDao sessionDao = new SessionDao(connection);
+//        sessionDao.startRoomSession(new Session(4, 22));
+//        sessionDao.startCornerSession(new Session(4, 1));
+        System.out.println(sessionDao.getSessionById(4));
+        System.out.println(sessionDao.getAllSessions());
+//        ISession session = new Session(55,5);
     }
 }

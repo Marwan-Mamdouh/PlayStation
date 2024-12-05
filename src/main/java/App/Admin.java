@@ -4,12 +4,27 @@ import java.util.Map;
 
 public class Admin implements IAdmin {
 
-    private final String adminName;
-    private final String adminPassword;
+    private String adminName;
+    private String adminPassword;
+    private int adminId;
 
     Admin (String name, String password) {
         adminName = name;
         adminPassword = password;
+    }
+
+    Admin(String name, String password,int adminId) {
+        adminName = name;
+        adminPassword = password;
+        this.adminId = adminId;
+    }
+
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
     }
 
     public static Admin login(Map<String, Admin> adminMap,
@@ -33,9 +48,8 @@ public class Admin implements IAdmin {
     }
 
     @Override
-    public Session startSession(int iAssignable,
-                                String ctrName) {
-        return new Session(ctrName, iAssignable);
+    public void startSession(int adminId, int AssignableId) {
+        new Session(adminId, AssignableId);
     }
 
 //    @Override

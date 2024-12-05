@@ -6,7 +6,9 @@ import java.sql.SQLException;
 public interface ISessionDao {
 
   // Insert a new session
-  void startSession(Session session) throws SQLException;
+  void startRoomSession(Session session) throws SQLException;
+
+  void startCornerSession(Session session) throws SQLException;
 
   // Retrieve a session by ID
   Session getSessionById(int sessionId) throws SQLException;
