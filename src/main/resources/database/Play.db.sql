@@ -1,0 +1,83 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "admins" (
+	"amdinId"	INTEGER UNIQUE,
+	"username"	TEXT NOT NULL UNIQUE,
+	"password"	TEXT NOT NULL,
+	PRIMARY KEY("amdinId" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "corner" (
+	"cornerId"	INTEGER UNIQUE,
+	"isFree"	INTEGER NOT NULL CHECK("isFree" IN (0, 1)),
+	"deviceId"	INTEGER,
+	PRIMARY KEY("cornerId" AUTOINCREMENT),
+	FOREIGN KEY("deviceId") REFERENCES "device"("deviceId")
+);
+CREATE TABLE IF NOT EXISTS "device" (
+	"deviceId"	INTEGER UNIQUE,
+	"isFree"	INTEGER NOT NULL CHECK("isFree" IN (0, 1)),
+	"deviceType"	TEXT,
+	"assignTo"	INTEGER,
+	PRIMARY KEY("deviceId" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "room" (
+	"roomId"	INTEGER UNIQUE,
+	"isFree"	INTEGER NOT NULL CHECK("isFree" IN (0, 1)),
+	"deviceId"	INTEGER,
+	PRIMARY KEY("roomId" AUTOINCREMENT),
+	FOREIGN KEY("deviceId") REFERENCES "device"("deviceId")
+);
+CREATE TABLE IF NOT EXISTS "sessions" (
+	"sessionId"	INTEGER,
+	"adminId"	INTEGER NOT NULL,
+	"roomId"	INTEGER,
+	"cornerId"	INTEGER,
+	"startTime"	datetime DEFAULT CURRENT_TIMESTAMP,
+	"endTime"	datetime,
+	"duration"	INTEGER,
+	PRIMARY KEY("sessionId"),
+	FOREIGN KEY("cornerId") REFERENCES "corner"("cornerId"),
+	FOREIGN KEY("roomId") REFERENCES "room"("roomId")
+);
+INSERT INTO "admins" VALUES (1,'ahmed','$2a$12$p0qJPY07Lxu9ZFtEZ/QNzuw/6rdfjY.pk1bt9NZL.qJW40Lk6tpza');
+INSERT INTO "corner" VALUES (1,1,100);
+INSERT INTO "corner" VALUES (2,1,101);
+INSERT INTO "corner" VALUES (3,1,102);
+INSERT INTO "corner" VALUES (4,1,103);
+INSERT INTO "corner" VALUES (5,1,104);
+INSERT INTO "device" VALUES (100,0,'PS4',1);
+INSERT INTO "device" VALUES (101,0,'PS4',2);
+INSERT INTO "device" VALUES (102,0,'PS4',3);
+INSERT INTO "device" VALUES (103,0,'PS4',4);
+INSERT INTO "device" VALUES (104,0,'PS4',5);
+INSERT INTO "device" VALUES (105,0,'PS5',21);
+INSERT INTO "device" VALUES (106,0,'PS5',22);
+INSERT INTO "device" VALUES (107,0,'PS5',23);
+INSERT INTO "device" VALUES (108,0,'PS5',24);
+INSERT INTO "device" VALUES (109,0,'PS5',25);
+INSERT INTO "device" VALUES (110,1,'PS5',NULL);
+INSERT INTO "room" VALUES (21,1,105);
+INSERT INTO "room" VALUES (22,1,106);
+INSERT INTO "room" VALUES (23,1,107);
+INSERT INTO "room" VALUES (24,1,108);
+INSERT INTO "room" VALUES (25,1,109);
+INSERT INTO "sessions" VALUES (1,3,NULL,5,'2024-12-04 18:24:51','2024-12-04 18:26:10',1);
+INSERT INTO "sessions" VALUES (2,4,NULL,4,'2024-12-04 19:25:08','2024-12-04 19:28:51',3);
+INSERT INTO "sessions" VALUES (3,4,21,NULL,'2024-12-04 19:25:46','2024-12-04 19:28:51',3);
+INSERT INTO "sessions" VALUES (4,4,22,NULL,'2024-12-05 10:41:54','2024-12-05 14:02:33',200);
+INSERT INTO "sessions" VALUES (5,4,NULL,1,'2024-12-05 10:41:54','2024-12-05 14:02:33',200);
+CREATE TRIGGER after_end_time_update
+AFTER UPDATE OF endTime ON sessions
+FOR EACH ROW BEGIN
+	UPDATE sessions
+	SET duration = (strftime ("%s", NEW.endTime) - strftime("%s", NEW.startTime)) / 60
+	WHERE sessionId = NEW.sessionId;
+END;
+CREATE TRIGGER set_start_time
+BEFORE INSERT on sessions
+FOR EACH ROW 
+BEGIN
+	UPDATE sessions
+	SET startTime = CURRENT_TIMESTAMP
+	WHERE sessionId = NEW.sessionId;
+END;
+COMMIT;
