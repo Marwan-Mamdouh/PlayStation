@@ -2,40 +2,41 @@ package App;
 
 public class Room extends AAssignable implements IAssignable {
 
-    // instance variables
-    private int roomId;
+  // instance variables
+  private int roomId;
 
-    Room() {}
+  Room() {
+  }
 
-    // full constrictor
-    Room(int roomId, boolean isFree,Integer deviceId) {
-        this.roomId = roomId;
-        this.isFree = isFree;
-        this.deviceId = deviceId;
-    }
+  // full constrictor
+  Room(int roomId, boolean isFree, Integer deviceId) {
+    this.roomId = roomId;
+    this.isFree = isFree;
+    this.deviceId = deviceId;
+  }
 
-    // assume every new room will be free to use in the creation moment
-    Room(int roomId, int deviceId) {
-        this(roomId, true, deviceId);
-    }
+  // assume every new room will be free to use in the creation moment
+  Room(int roomId, int deviceId) {
+    this(roomId, true, deviceId);
+  }
 
-    // for creating temp room to add to db
-    Room(int deviceId) {
-        isFree = true;
-        this.deviceId = deviceId;
-    }
+  // for creating temp room to add to db
+  Room(int deviceId) {
+    isFree = true;
+    this.deviceId = deviceId;
+  }
 
-    @Override
-    // produce room id
-    public int getId() {
-        return roomId;
-    }
+  @Override
+  // produce room id
+  public int getId() {
+    return roomId;
+  }
 
-    @Override
-    // display the room info
-    public String toString() {
-        return "Room{ roomId=" + roomId +
-                ", deviceId=" + deviceId +
-                ", isFree=" + isFree + " }";
-    }
+  @Override
+  // display the room info
+  public String toString() {
+    return "Room{ Room Id:" + roomId +
+        ", device Id: " + deviceId +
+        ", is free? " + isFree + " }\n";
+  }
 }
