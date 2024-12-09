@@ -1,28 +1,36 @@
 package App;
 
-import java.util.Map;
+public record Admin(String adminName, String adminPassword, int adminId) {
 
-public class Admin implements IAdmin {
+}
 
-    private String adminName;
-    private String adminPassword;
-    private int adminId;
+//    implements IAdmin
+//{
+//    private String adminName;
+//    private String adminPassword;
+//    private int adminId;
+//
+//    Admin (String name, String password) {
+//        adminName = name;
+//        adminPassword = password;
+//    }
+//
+//    Admin(String name, String password,int adminId) {
+//        adminName = name;
+//        adminPassword = password;
+//        this.adminId = adminId;
+//    }
+//
+//    public int getAdminId() {
+//        return adminId;
+//    }
+//
+//    // produce the admin name (String)
+//    public String getAdminName() {
+//        return adminName;
+//    }
 
-    Admin (String name, String password) {
-        adminName = name;
-        adminPassword = password;
-    }
-
-    Admin(String name, String password,int adminId) {
-        adminName = name;
-        adminPassword = password;
-        this.adminId = adminId;
-    }
-
-    public int getAdminId() {
-        return adminId;
-    }
-
+/*
     public void setAdminId(int adminId) {
         this.adminId = adminId;
     }
@@ -42,18 +50,12 @@ public class Admin implements IAdmin {
     }
 
     @Override
-    // produce the admin name (String)
-    public String getAdminName() {
-        return adminName;
-    }
-
-    @Override
     public void startSession(int adminId, int AssignableId) {
         new Session(adminId, AssignableId);
     }
-
-//    @Override
-//    public double endSession(Session session) {
-//        return session.endAndCharge();
-//    }
-}
+    @Override
+    public double endSession(Session session) {
+        return session.endAndCharge();
+    }
+*/
+//}
