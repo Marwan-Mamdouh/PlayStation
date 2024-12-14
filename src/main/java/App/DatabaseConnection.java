@@ -4,30 +4,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+public enum DatabaseConnection {
 
-  private static DatabaseConnection instance;
+  INSTANCE; // The single instance
   private final Connection connection;
 
-  private DatabaseConnection() {
-    try {// Example for SQLITE /src/main/resources/database
+  DatabaseConnection() {
+    try {
       String url = "jdbc:sqlite:/home/marwanmamdouh/java labs/Playstation/src/main/"
           + "resources/database/Play.db";
       connection = DriverManager.getConnection(url);
     } catch (SQLException e) {
       throw new RuntimeException("Error connecting to the database", e);
     }
-  }
-
-  public static DatabaseConnection getInstance() {
-    if (instance == null) {
-      synchronized (DatabaseConnection.class) {
-        if (instance == null) {
-          instance = new DatabaseConnection();
-        }
-      }
-    }
-    return instance;
   }
 
   public Connection getConnection() {
