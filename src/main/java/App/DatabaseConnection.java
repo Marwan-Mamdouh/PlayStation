@@ -11,8 +11,7 @@ public enum DatabaseConnection {
 
   DatabaseConnection() {
     try {
-      String url = "jdbc:sqlite:/home/marwanmamdouh/java labs/Playstation/src/main/"
-          + "resources/database/Play.db";
+      String url = "jdbc:sqlite:./src/main/resources/database/Play.db";
       connection = DriverManager.getConnection(url);
     } catch (SQLException e) {
       throw new RuntimeException("Error connecting to the database", e);
